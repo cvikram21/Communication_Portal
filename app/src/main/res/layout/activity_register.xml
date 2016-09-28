@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#404040"
+    tools:context="com.example.communicationportal.Register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="First Name"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter you ID"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Last Name"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter you ID"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Email ID"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter you Email ID"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Password"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Mobile"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your mobile number"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Address 1"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/add1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your Address1"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Address 2"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/add2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your Address2"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="City"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your City"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ZipCode"
+                    android:textColor="#f2f2f2"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/zip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e6e3e3"
+                    android:elevation="3dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Enter your Zipcode"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:padding="10dp" />
+
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="SUBMIT"
+                    android:background="@android:color/holo_green_light"
+                    android:layout_marginTop="10dp"/>
+                <Button
+                    android:id="@+id/cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="CANCEL"
+                    android:background="@android:color/holo_orange_dark"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

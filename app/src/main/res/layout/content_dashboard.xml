@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#404040"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.communicationportal.Dashboard"
+    tools:showIn="@layout/activity_dashboard"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select the types of places you want to search for"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#f2f2f2"
+        android:textSize="18dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="303dp"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.54">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/group">
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="department_store"
+                android:id="@+id/checkBox1"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="university"
+                android:id="@+id/checkBox2"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hospital"
+                android:id="@+id/checkBox3"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="insurance_agency"
+                android:id="@+id/checkBox4"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="art_gallery"
+                android:id="@+id/checkBox5"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="restaurant"
+                android:id="@+id/checkBox6"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="movie_theater"
+                android:id="@+id/checkBox7"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dentist"
+                android:id="@+id/checkBox8"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="library"
+                android:id="@+id/checkBox9"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="car_rental"
+                android:id="@+id/checkBox10"
+                android:padding="20dp"
+                android:textColor="#f2f2f2"
+                android:textSize="16sp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Places"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/holo_green_light"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"/>
+
+
+</LinearLayout>

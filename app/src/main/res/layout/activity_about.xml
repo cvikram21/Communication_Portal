@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="#404040"
+    tools:context="com.example.communicationportal.About">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="The Communication Portal is a serivce that allows individuals to connect with the Hospitals, Restaurants, Universities, etc.. "
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/colorAccent" />
+    />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Contact Info : \n Company : SE PROJECT \n Telephone : 987-654-3210 \n Email : support@seproject.com "
+        android:id="@+id/textView1"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#f2f2f2" />
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Developers : Kasyesha \n                      Tejaswini \n                      Vikram "
+        android:id="@+id/textView2"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#f2f2f2"
+        android:layout_gravity="center_horizontal" />
+    />
+</LinearLayout>
