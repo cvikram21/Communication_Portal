@@ -59,14 +59,23 @@ public class Register extends AppCompatActivity implements ServiceMethodListener
             @Override
             public void onClick(View v) {
                     username = user.getText().toString();
+                    username.replaceAll("\\s+","");
                     firstName = fname.getText().toString();
+                    firstName.replaceAll("\\s+","");
                     lastName = lname.getText().toString();
+                    lastName.replaceAll("\\s+","");
                     pass = password.getText().toString();
+                    pass.replaceAll("\\s+","");
                 Addr1 = addr1.getText().toString();
+                Addr1.replaceAll("\\s+","");
                 Addr2 = addr2.getText().toString();
+                Addr2.replaceAll("\\s+","");
                 City =  city.getText().toString();
+                City.replaceAll("\\s+","");
                 Zip = zipcode.getText().toString();
+                Zip.replaceAll("\\s+","");
                     phNumber = (mobile.getText().toString());
+                phNumber.replaceAll("\\s+","");
                 String url1 = getResources().getString(R.string.base_url)+"register.php?"+"firstName="+firstName+"&lastName="+lastName+"&email="+username+"&password="+pass+"&mobile="+phNumber+"&add1="+Addr1+"&add2="+Addr2+"&city="+City+"&state=TX&zip="+Zip+"";
                 Log.d("Vikki", url1);
                 ServiceWithoutParameters postmethods = new ServiceWithoutParameters(Register.this, url1 , "RegClass","RegMethod");
