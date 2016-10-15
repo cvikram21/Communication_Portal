@@ -53,6 +53,8 @@ public class MainActivity extends Activity implements ServiceMethodListener{
             @Override
             public void onClick(View v) {
                     username = edUsername.getText().toString();
+                    //trim method added by teja to remove bug with spaces at beginning and end of userid
+                    username = username.trim();
                     password = edPassword.getText().toString();
                     loginServiceCall();
 

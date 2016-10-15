@@ -58,24 +58,25 @@ public class Register extends AppCompatActivity implements ServiceMethodListener
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //replace methods added by teja to remove bug while registration
                     username = user.getText().toString();
-                    username.replaceAll("\\s+","");
+                    username = username.replace(" ","");
                     firstName = fname.getText().toString();
-                    firstName.replaceAll("\\s+","");
+                    firstName = firstName.replace(" ","");
                     lastName = lname.getText().toString();
-                    lastName.replaceAll("\\s+","");
+                    lastName = lastName.replace(" ","");
                     pass = password.getText().toString();
-                    pass.replaceAll("\\s+","");
+                    pass = pass.replace(" ","");
                 Addr1 = addr1.getText().toString();
-                Addr1.replaceAll("\\s+","");
+                Addr1 = Addr1.replace(" ","");
                 Addr2 = addr2.getText().toString();
-                Addr2.replaceAll("\\s+","");
+                Addr2 = Addr2.replace(" ","");
                 City =  city.getText().toString();
-                City.replaceAll("\\s+","");
+                City = City.replace(" ","");
                 Zip = zipcode.getText().toString();
-                Zip.replaceAll("\\s+","");
+                Zip = Zip.replace(" ","");
                     phNumber = (mobile.getText().toString());
-                phNumber.replaceAll("\\s+","");
+                phNumber = phNumber.replace(" ","");
                 String url1 = getResources().getString(R.string.base_url)+"register.php?"+"firstName="+firstName+"&lastName="+lastName+"&email="+username+"&password="+pass+"&mobile="+phNumber+"&add1="+Addr1+"&add2="+Addr2+"&city="+City+"&state=TX&zip="+Zip+"";
                 Log.d("Vikki", url1);
                 ServiceWithoutParameters postmethods = new ServiceWithoutParameters(Register.this, url1 , "RegClass","RegMethod");

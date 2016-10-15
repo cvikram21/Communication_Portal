@@ -23,7 +23,7 @@ import HttpConnection.ServiceWithoutParameters;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ServiceMethodListener{
 
     private GoogleMap mMap;
-    String types, resLat, resLon;
+    String types, resLat, resLon, placeId;
     CustomAlertDialog alertDialog;
     Double lat3, lon3;
     int i;
@@ -78,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Log.d("Vikki", url2);
                     ServiceWithoutParameters postmethod = new ServiceWithoutParameters(MapsActivity.this, url2, "Case3class", "Case3method");
                     postmethod.execute();
-                    } else {
+                } else {
                     alertDialog.showOkDialog("Please select an alias location.");
                 }
             }
@@ -89,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void getResponse(String data, String classname, String methodname) {
+        PlaceDetails placeDetails = new PlaceDetails();
         if (classname.equalsIgnoreCase("Case3class")) {
             if (methodname.equalsIgnoreCase("Case3method")) {
                 try {
@@ -103,9 +104,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             JSONObject jb1 = ja.getJSONObject(i);
                             resLat = jb1.getString("lat");
                             resLon = jb1.getString("lon");
+                            placeId = jb1.getString("place_id");
                             Log.d("Result Lattitude", resLat);
                             Log.d("Result Longitude", resLon);
                             Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+                            Log.d("Test","After calling place details class");
                             currentMarker.showInfoWindow();
                         }
                         Log.d("Vikki", "Entered getResponse");
@@ -122,4 +125,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
+//code by teja till here
 }
+
