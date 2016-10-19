@@ -87,8 +87,8 @@ if(isInternetPresent == true){
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpParams httpParams = httpclient.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
-			HttpConnectionParams.setSoTimeout(httpParams, 10000);
+			HttpConnectionParams.setConnectionTimeout(httpParams, 100000);
+			HttpConnectionParams.setSoTimeout(httpParams, 100000);
 			HttpPost httppost = new HttpPost(url);
 		//	Log.i("JJA", "In HttpPostMethodCalls urlParameters is ::"+httppost);
 		Log.i("JJA", "In HttpPostMethodCalls urlParameters is ::"+urlParameters);

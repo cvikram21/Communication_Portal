@@ -76,8 +76,8 @@ public class ServiceWithoutParameters extends AsyncTask<Void, Void, String> {
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpParams httpParams = httpclient.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
-			HttpConnectionParams.setSoTimeout(httpParams, 60000);
+			HttpConnectionParams.setConnectionTimeout(httpParams, 600000);
+			HttpConnectionParams.setSoTimeout(httpParams, 600000);
 			HttpGet httppost = new HttpGet(url);
 
 			HttpResponse response = httpclient.execute(httppost);

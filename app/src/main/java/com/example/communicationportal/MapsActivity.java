@@ -3,7 +3,6 @@ package com.example.communicationportal;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,9 +11,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+
+import java.io.IOException;
 
 import HttpConnection.CustomAlertDialog;
 import HttpConnection.ServiceMethodListener;
@@ -23,7 +24,7 @@ import HttpConnection.ServiceWithoutParameters;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ServiceMethodListener{
 
     private GoogleMap mMap;
-    String types, resLat, resLon, placeId;
+    String types, resLat, resLon, placeId, placeName, website, rating;
     CustomAlertDialog alertDialog;
     Double lat3, lon3;
     int i;
@@ -38,7 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 
 
@@ -54,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         LatLng currentLocation = new LatLng(30.096153, -95.988439);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((currentLocation), 11.0f));
@@ -84,20 +83,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                ListLink listLinks = new ListLink();
+                GetSet getSet = new GetSet();
+                String placeName = marker.getTitle();
+                Log.d("placeName", placeName);
+                getSet.setPlaceName(placeName);
+                try {
+                    listLinks.fetchUrls();
+                }catch (IOException e)
+                {
+                    Log.d("Exception in URLs",e.getMessage().toString());
+                }
+            }
+        });
     }
+
+
 
     @Override
     public void getResponse(String data, String classname, String methodname) {
-        PlaceDetails placeDetails = new PlaceDetails();
         if (classname.equalsIgnoreCase("Case3class")) {
             if (methodname.equalsIgnoreCase("Case3method")) {
                 try {
+                    WebSiteDetails websiteDetails = new WebSiteDetails();
                     JSONObject job = new JSONObject(data);
                     String notes = job.getString("record");
-                    //jarray = new JSONArray(notes);
                     JSONArray ja = new JSONArray(notes);
                     int len = ja.length();
+                    String placeArray[] = new String[len];
+                    String websitesArray[] = new String[len];
                     String status = job.getString("status");
                     if (status.equalsIgnoreCase("200")) {
                         for (int i = 0; i < len; i++) {
@@ -105,20 +122,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             resLat = jb1.getString("lat");
                             resLon = jb1.getString("lon");
                             placeId = jb1.getString("place_id");
-                            Log.d("Result Lattitude", resLat);
-                            Log.d("Result Longitude", resLon);
-                            Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
-                            Log.d("Test","After calling place details class");
+                            placeName = jb1.getString("placeName");
+                            placeArray[i] = placeName;
+                            website = jb1.getString("website");
+                            if(website.equals("false")){
+                                websitesArray[i] = "not found";
+                            }
+                            else{
+                                websitesArray[i] = website;
+                            }
+                            rating = jb1.getString("rating");
+                            Log.d("WebSite",website);
+                            websiteDetails.setName(placeArray);
+                            websiteDetails.setWeb(websitesArray);
+                            Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).title(placeName).snippet("Rating:"+rating).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
                             currentMarker.showInfoWindow();
-                        }
-                        Log.d("Vikki", "Entered getResponse");
-                        Log.d("Vikki", data);
 
+                        }
+                        /*placeArray = new String[0];
+                        websitesArray = new String[0];
+                        */
                     } else {
                         alertDialog.showOkDialog("Something went wrong, please try again");
                     }
                 } catch (Exception e) {
-
+                    Log.d("Exception",e.toString());
                 }
 
             }

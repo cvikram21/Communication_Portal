@@ -29,4 +29,5 @@ dependencies {
     compile 'eu.inmite.android.lib:android-validation-komensky:0.9.4'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.android.support:design:24.2.0'
+    compile 'org.jsoup:jsoup:+'
 }

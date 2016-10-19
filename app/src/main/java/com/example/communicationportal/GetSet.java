@@ -36,6 +36,21 @@ public class GetSet {
     public String getLastName() {
         return lastName;
     }
+    String urls[];
+    String placeName;
+    public String[] getUrls() {
+        return urls;
+    }
+    public void setUrls(String[] urls) {
+        this.urls = urls;
+    }
 
+    public String getPlaceName() {
+        return placeName;
+    }
 
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
+        Log.d("PlaceName in getset",this.placeName);
+    }
 }
