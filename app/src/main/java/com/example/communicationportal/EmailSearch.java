@@ -25,12 +25,9 @@ public class EmailSearch {
 	public void emails() throws SSLHandshakeException{
 		Pattern VALID = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+", Pattern.CASE_INSENSITIVE);
 
-		//EmailSearch emailSearch = new EmailSearch();
-		//System.out.println(set);
 		String urls[] = new String[set.size()];
 		set.toArray(urls);
 		for(int i = 0; i < set.size(); i++){
-			//System.out.println(urls[i]);
 			Document doc = null;
 			try {
 				doc = Jsoup.connect(urls[i]).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").timeout(10*1000).get();

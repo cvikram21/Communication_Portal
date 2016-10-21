@@ -1,5 +1,10 @@
 package com.example.communicationportal;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -15,16 +20,24 @@ import java.util.Set;
 /**
  * Example program to list links from a URL.
  */
-public class ListLink {
+public class ListLink extends Activity {
 	static Document doc;
 	static int count = 0;
+    SharedPreferences sharedPreferences ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("webDetails",MODE_PRIVATE);
+    }
+
+    //    SharedPreferences.Editor editor = sharedPreferences.edit();
     public void fetchUrls() throws IOException{
     	GetSet getSet = new GetSet();
     	EmailSearch emailSearch = new EmailSearch();
-        WebSiteDetails webSiteDetails = new WebSiteDetails();
         String placeName = getSet.getPlaceName();
-        Log.d("placeName in ListLink", placeName);
-        String url = webSiteDetails.getWebSite(placeName);
+
+        String url = sharedPreferences.getString(placeName,"false");
         Log.d("URL",url);
         String message = "Problem occured while fetching urls";
 		try {

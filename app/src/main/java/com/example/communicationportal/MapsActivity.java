@@ -1,5 +1,6 @@
 package com.example.communicationportal;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +30,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Double lat3, lon3;
     int i;
     Marker aliasLocation = null;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         types = getIntent().getStringExtra("Types");
+        sharedPreferences =  getSharedPreferences("webDetails",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -71,14 +75,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     aliasLocation = mMap.addMarker(new MarkerOptions().position(new LatLng(lat3, lon3)).title("Selected alias location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     aliasLocation.showInfoWindow();
                     i++;
-                }
-                if (lat3 != 0 && lon3 != 0) {
-                    String url2 = getResources().getString(R.string.base_url) + "multiplelocations.php?" + "types=" + types + "&lattitude=" + lat3 + "&longitude=" + lon3 +  "";
-                    Log.d("Vikki", url2);
-                    ServiceWithoutParameters postmethod = new ServiceWithoutParameters(MapsActivity.this, url2, "Case3class", "Case3method");
-                    postmethod.execute();
-                } else {
-                    alertDialog.showOkDialog("Please select an alias location.");
+
+                    if (lat3 != 0 && lon3 != 0) {
+                        String url2 = getResources().getString(R.string.base_url) + "multiplelocations.php?" + "types=" + types + "&lattitude=" + lat3 + "&longitude=" + lon3 + "";
+                        Log.d("Vikki", url2);
+                        ServiceWithoutParameters postmethod = new ServiceWithoutParameters(MapsActivity.this, url2, "Case3class", "Case3method");
+                        postmethod.execute();
+                    } else {
+                        alertDialog.showOkDialog("Please select an alias location.");
+                    }
                 }
             }
         });
@@ -93,6 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getSet.setPlaceName(placeName);
                 try {
                     listLinks.fetchUrls();
+                    sharedPreferences.getString(placeName,"false");
                 }catch (IOException e)
                 {
                     Log.d("Exception in URLs",e.getMessage().toString());
@@ -106,15 +112,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void getResponse(String data, String classname, String methodname) {
         if (classname.equalsIgnoreCase("Case3class")) {
-            if (methodname.equalsIgnoreCase("Case3method")) {
+            if (methodname.equalsIgnoreCase("Case3method"))
+            {
                 try {
-                    WebSiteDetails websiteDetails = new WebSiteDetails();
                     JSONObject job = new JSONObject(data);
                     String notes = job.getString("record");
                     JSONArray ja = new JSONArray(notes);
                     int len = ja.length();
-                    String placeArray[] = new String[len];
-                    String websitesArray[] = new String[len];
                     String status = job.getString("status");
                     if (status.equalsIgnoreCase("200")) {
                         for (int i = 0; i < len; i++) {
@@ -123,26 +127,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             resLon = jb1.getString("lon");
                             placeId = jb1.getString("place_id");
                             placeName = jb1.getString("placeName");
-                            placeArray[i] = placeName;
                             website = jb1.getString("website");
-                            if(website.equals("false")){
-                                websitesArray[i] = "not found";
-                            }
-                            else{
-                                websitesArray[i] = website;
-                            }
+                            editor.putString(placeName,website);
+                            editor.commit();
                             rating = jb1.getString("rating");
-                            Log.d("WebSite",website);
-                            websiteDetails.setName(placeArray);
-                            websiteDetails.setWeb(websitesArray);
                             Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).title(placeName).snippet("Rating:"+rating).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
                             currentMarker.showInfoWindow();
-
                         }
-                        /*placeArray = new String[0];
-                        websitesArray = new String[0];
-                        */
-                    } else {
+                    }
+                    else {
                         alertDialog.showOkDialog("Something went wrong, please try again");
                     }
                 } catch (Exception e) {
