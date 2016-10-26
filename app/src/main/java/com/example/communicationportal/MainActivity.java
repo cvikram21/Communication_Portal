@@ -1,6 +1,7 @@
 package com.example.communicationportal;
 
 import android.app.Activity;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import HttpConnection.CustomAlertDialog;
@@ -44,6 +45,10 @@ public class MainActivity extends Activity implements ServiceMethodListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         edUsername = (EditText)findViewById(R.id.user);
         edPassword = (EditText)findViewById(R.id.password);
         loginSubmit = (Button)findViewById(R.id.loin);
@@ -53,7 +58,6 @@ public class MainActivity extends Activity implements ServiceMethodListener{
             @Override
             public void onClick(View v) {
                     username = edUsername.getText().toString();
-                    //trim method added by teja to remove bug with spaces at beginning and end of userid
                     username = username.trim();
                     password = edPassword.getText().toString();
                     loginServiceCall();
@@ -67,9 +71,6 @@ public class MainActivity extends Activity implements ServiceMethodListener{
                 startActivity(new Intent(MainActivity.this, Register.class));
             }
         });
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
 
     }
     @Override
@@ -107,7 +108,7 @@ public class MainActivity extends Activity implements ServiceMethodListener{
             String status=job.getString("status");
             String message=job.getString("message");
             if(status.equals("200")) {
-                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                Intent intent = new Intent(MainActivity.this, FirstScreen.class);
                 startActivity(intent);
             }
             else{
@@ -121,3 +122,4 @@ public class MainActivity extends Activity implements ServiceMethodListener{
     }
 
 }
+//code written by vikram

@@ -69,3 +69,4 @@ public class CustomAlertDialog {
 		alertDialog.dismiss();
 	}
 }
+//code written by vikram

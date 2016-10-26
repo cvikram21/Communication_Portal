@@ -75,7 +75,7 @@ public class Register extends AppCompatActivity implements ServiceMethodListener
                 City = City.replace(" ","");
                 Zip = zipcode.getText().toString();
                 Zip = Zip.replace(" ","");
-                    phNumber = (mobile.getText().toString());
+                phNumber = (mobile.getText().toString());
                 phNumber = phNumber.replace(" ","");
                 String url1 = getResources().getString(R.string.base_url)+"register.php?"+"firstName="+firstName+"&lastName="+lastName+"&email="+username+"&password="+pass+"&mobile="+phNumber+"&add1="+Addr1+"&add2="+Addr2+"&city="+City+"&state=TX&zip="+Zip+"";
                 Log.d("Vikki", url1);
@@ -118,3 +118,4 @@ public class Register extends AppCompatActivity implements ServiceMethodListener
         }
     }
 }
+//code written by ayesha

@@ -29,3 +29,4 @@ public class ConnectionDetector {
           return false;
     }
 }
+//code written by vikram

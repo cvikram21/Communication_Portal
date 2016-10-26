@@ -2,11 +2,13 @@ package com.example.communicationportal;
 
 import android.util.Log;
 
-/**
- * Created by darshita on 9/20/16.
- */
+import java.util.HashSet;
+import java.util.Set;
+
+
 public class GetSet {
     String email, firstName, lastName;
+   static Set<String> Emailset1 = new HashSet<String>();
 
     public void setEmail(String email) {
         this.email = email;
@@ -36,6 +38,7 @@ public class GetSet {
     public String getLastName() {
         return lastName;
     }
+    //code from here written by Vikram
     String urls[];
     String placeName;
     public String[] getUrls() {
@@ -53,4 +56,15 @@ public class GetSet {
         this.placeName = placeName;
         Log.d("PlaceName in getset",this.placeName);
     }
+
+    public Set<String> getEmailset1() {
+        return Emailset1;
+    }
+
+    public void setEmailset1(Set<String> emailset1) {
+        Emailset1 = emailset1;
+        Log.d("In get set emailset1 is",emailset1.toString());
+    }
+//till here
 }
+//code written by teja

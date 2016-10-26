@@ -16,13 +16,15 @@ import org.jsoup.UnsupportedMimeTypeException;
 import org.jsoup.nodes.Document;
 
 
-public class EmailSearch {
+public class EmailSearch implements IEmailSearch{
+	ListEmails listEmails = new ListEmails();
+	GetSet getSet = new GetSet();
 	Set<String> set = new HashSet<String>();
 	Set<String> set1 = new HashSet<String>();
 	public void setSet(Set<String> set) {
 		this.set = set;
 	}
-	public void emails() throws SSLHandshakeException{
+	public void emails(int ij) throws SSLHandshakeException{
 		Pattern VALID = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+", Pattern.CASE_INSENSITIVE);
 
 		String urls[] = new String[set.size()];
@@ -47,14 +49,15 @@ public class EmailSearch {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String text = doc.body().text(); // "An example link"
-			//System.out.println(text);
+			String text = doc.body().text();
 			Matcher matcher = VALID.matcher(text);
 			while (matcher.find()) {
 				set1.add(matcher.group());
-		        //System.out.println(matcher.group());
-		    }
+			}
 		}
-		System.out.println(set1);
+		//listEmails.listEmails(set1);
+		getSet.setEmailset1(set1);
+        //line written by vikram
 	}
 }
+//code written by ayesha

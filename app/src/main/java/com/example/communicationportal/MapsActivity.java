@@ -1,5 +1,8 @@
 package com.example.communicationportal;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -30,15 +33,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Double lat3, lon3;
     int i;
     Marker aliasLocation = null;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    String placeNames[], websites[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         types = getIntent().getStringExtra("Types");
-        sharedPreferences =  getSharedPreferences("webDetails",MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -46,15 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -63,7 +56,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((currentLocation), 11.0f));
         Marker currentMarker = mMap.addMarker(new MarkerOptions().position((currentLocation)).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         currentMarker.showInfoWindow();
-        //alertDialog.showOkDialog("Please select an alias location and radius to be sent to the google server");
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
@@ -87,24 +79,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
-
+        //function added by Vikram
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 ListLink listLinks = new ListLink();
                 GetSet getSet = new GetSet();
                 String placeName = marker.getTitle();
-                Log.d("placeName", placeName);
                 getSet.setPlaceName(placeName);
-                try {
-                    listLinks.fetchUrls();
-                    sharedPreferences.getString(placeName,"false");
-                }catch (IOException e)
-                {
-                    Log.d("Exception in URLs",e.getMessage().toString());
+                for(int i = 0; i<placeNames.length; i++){
+                    if(placeNames[i].equalsIgnoreCase(placeName)){
+                        break;
+                    }
                 }
+                listLinks.fetchUrls1(websites[i-1]);
+                final ProgressDialog progress = ProgressDialog.show(MapsActivity.this, "Please wait while we fetch details", "Making contacts ready", true);
+                progress.setCancelable(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(15000);
+                            progress.dismiss();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(new Intent(MapsActivity.this, ListEmails.class));
+                                }
+                            });
+
+                        }catch (Exception e){
+
+                        }
+                    }
+                }).start();
             }
         });
+        //till here
     }
 
 
@@ -112,13 +123,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void getResponse(String data, String classname, String methodname) {
         if (classname.equalsIgnoreCase("Case3class")) {
-            if (methodname.equalsIgnoreCase("Case3method"))
-            {
+            if (methodname.equalsIgnoreCase("Case3method")) {
                 try {
                     JSONObject job = new JSONObject(data);
                     String notes = job.getString("record");
                     JSONArray ja = new JSONArray(notes);
                     int len = ja.length();
+                    placeNames = new String[len];
+                    websites = new String[len];
                     String status = job.getString("status");
                     if (status.equalsIgnoreCase("200")) {
                         for (int i = 0; i < len; i++) {
@@ -127,19 +139,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             resLon = jb1.getString("lon");
                             placeId = jb1.getString("place_id");
                             placeName = jb1.getString("placeName");
+                            placeNames[i] = placeName;
                             website = jb1.getString("website");
-                            editor.putString(placeName,website);
-                            editor.commit();
+                            websites[i] = website;
                             rating = jb1.getString("rating");
-                            Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).title(placeName).snippet("Rating:"+rating).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+                            Marker currentMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(resLat), Double.parseDouble(resLon))).title(placeName).snippet("Rating:" + rating).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
                             currentMarker.showInfoWindow();
                         }
-                    }
-                    else {
+                    } else {
                         alertDialog.showOkDialog("Something went wrong, please try again");
                     }
                 } catch (Exception e) {
-                    Log.d("Exception",e.toString());
+                    Log.d("Exception", e.toString());
                 }
 
             }
@@ -147,5 +158,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 //code by teja till here
+
+
+
 }
 
