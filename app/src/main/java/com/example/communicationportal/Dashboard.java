@@ -13,10 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import HttpConnection.CustomAlertDialog;
+
 public class Dashboard extends AppCompatActivity {
     Button button;
     RadioButton c1, c2,c3, c4, c5,c6, c7, c8, c9, c10;
     String check="";
+    CustomAlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +62,17 @@ public class Dashboard extends AppCompatActivity {
                     if (c10.isChecked())
                         check = c10.getText().toString();
                     Log.d("V", check);
-                    Intent intent = new Intent(Dashboard.this, MapsActivity.class);
-                    intent.putExtra("Types", check);
-                    check = "";
-                    startActivity(intent);
-                }
+                    if(check != "") {
+                        Intent intent = new Intent(Dashboard.this, MapsActivity.class);
+                        intent.putExtra("Types", check);
+                        check = "";
+                        startActivity(intent);
+                    }else {
+
+                        alertDialog = new CustomAlertDialog(Dashboard.this);
+                        alertDialog.showOkDialog("Please select atleast one type to continue");
+                    }
+                         }
             });
         }catch (Exception e) {
             Log.d("Exception", e.toString());
@@ -78,6 +87,10 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Dashboard.this, FirstScreen.class);
+        startActivity(intent);
+    }
 }
 //Code written by Vikram

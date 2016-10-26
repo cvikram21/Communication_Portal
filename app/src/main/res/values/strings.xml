@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Communication Portal</string>
-    <string name="base_url">http://129.207.110.0/Communication/</string>
+    <string name="base_url">http://162.194.21.37/Communication/</string>
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_activity_maps">Map</string>
     <string name="validation_not_empty">Field cannot be emplty</string>

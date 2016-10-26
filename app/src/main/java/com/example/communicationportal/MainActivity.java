@@ -112,7 +112,7 @@ public class MainActivity extends Activity implements ServiceMethodListener{
                 startActivity(intent);
             }
             else{
-                alertDialog.showOkDialog("Something went wrong, please try again");
+                alertDialog.showOkDialog("Username  and Passwords do not match. Please try again.");
             }
         }
         catch (Exception e){

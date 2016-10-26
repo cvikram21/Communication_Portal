@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,7 +50,10 @@ public class ListLink implements IListLink{
                 try {
                     Log.d("In runnable", "run method");
                     doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").timeout(10*1000).get();
-                } catch (SSLHandshakeException e){
+                }catch (MalformedURLException e){
+
+                }
+                catch (SSLHandshakeException e){
 
                 }catch (SocketTimeoutException e) {
                     // TODO Auto-generated catch block
@@ -64,8 +68,8 @@ public class ListLink implements IListLink{
                 Set<String> set = new HashSet<String>();
                 String urlLinks[] = new String[links.size()];
                 for (Element link : links) {
-                    //set.add(link.attr("abs:href"));
                     urlLinks[i] = link.attr("abs:href");
+                    Log.d("ALl URLS",urlLinks[i]);
                     if(urlLinks[i].contains("about")||urlLinks[i].contains("contact")||urlLinks[i].contains("support")||urlLinks[i].contains("help")){
                         set.add(urlLinks[i]);
                     }

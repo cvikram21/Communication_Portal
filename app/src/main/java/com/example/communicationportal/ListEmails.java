@@ -97,10 +97,12 @@ public class ListEmails extends AppCompatActivity {
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
-                Toast.makeText(getApplicationContext(),
+/*                Toast.makeText(getApplicationContext(),
                         "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
-
+*/
+                Intent intent = new Intent(ListEmails.this, EmailSubjectBody.class);
+                startActivity(intent);
             }
 
         });
@@ -113,4 +115,4 @@ public class ListEmails extends AppCompatActivity {
         startActivity(intent);
     }
 }
-//Code written by Vikram
+//Code written by Ayesha
