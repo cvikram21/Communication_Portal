@@ -13,5 +13,6 @@ public class ChatScreen extends AppCompatActivity {
         setContentView(R.layout.activity_chat_screen);
         alertDialog = new CustomAlertDialog(ChatScreen.this);
         alertDialog.showOkDialog("No conversations found");
+
     }
 }
