@@ -108,6 +108,7 @@ public class MainActivity extends Activity implements ServiceMethodListener{
             String status=job.getString("status");
             String message=job.getString("message");
             if(status.equals("200")) {
+                getSet.setEmail(username);
                 Intent intent = new Intent(MainActivity.this, FirstScreen.class);
                 startActivity(intent);
             }

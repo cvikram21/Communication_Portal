@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +45,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import HttpConnection.ServiceMethodListener;
+import HttpConnection.ServiceWithoutParameters;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -57,13 +60,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailSubjectBody extends AppCompatActivity
-        implements EasyPermissions.PermissionCallbacks {
+        implements EasyPermissions.PermissionCallbacks, ServiceMethodListener {
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
     ProgressDialog mProgress;
     EditText editTextSubject, editTextMessage;
-
+    GetSet getSet = new GetSet();
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -74,7 +77,7 @@ public class EmailSubjectBody extends AppCompatActivity
     private static final String[] SCOPES = { GmailScopes.GMAIL_LABELS };
 
     private static final String SCOPE = "https://mail.google.com/";//{ GmailScopes.GMAIL_LABELS };
-    String message = null, subject = null;
+    String message = null, subject = null, senderplaceName = null, senderEmail = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,8 @@ public class EmailSubjectBody extends AppCompatActivity
         editTextMessage = (EditText)findViewById(R.id.editTextMessage);
         mOutputText = (TextView)findViewById(R.id.textView4);
         mCallApiButton = (Button)findViewById(R.id.button4);
+        senderplaceName = getIntent().getExtras().getString("placeName");
+        senderEmail = getIntent().getExtras().getString("email");
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +99,11 @@ public class EmailSubjectBody extends AppCompatActivity
         });
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Sending message ...");
-
+       /* String url1 = getResources().getString(R.string.base_url)+"sentmaildetails.php?"+"sentmailid="+senderEmail+"&sentmailsubject="+subject+"&email="+getSet.getEmail()+"&sentmailername="+senderplaceName+"";
+        Log.d("Vikki", url1);
+        ServiceWithoutParameters postmethods = new ServiceWithoutParameters(EmailSubjectBody.this, url1 , "RegClass","RegMethod");
+        postmethods.execute();
+*/
         //setContentView(activityLayout);
 
         // Initialize credentials and service object.
@@ -292,6 +301,11 @@ public class EmailSubjectBody extends AppCompatActivity
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
+    }
+
+    @Override
+    public void getResponse(String data, String classname, String methodname) {
+
     }
 
     /**

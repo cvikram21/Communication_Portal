@@ -85,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onInfoWindowClick(Marker marker) {
                 ListLink listLinks = new ListLink();
                 GetSet getSet = new GetSet();
-                String placeName = marker.getTitle();
+                placeName = marker.getTitle();
                 getSet.setPlaceName(placeName);
                 for(int i = 0; i<placeNames.length; i++){
                     if(placeNames[i].equalsIgnoreCase(placeName)){
@@ -104,7 +104,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(MapsActivity.this, ListEmails.class));
+                                    Intent intent = (new Intent(MapsActivity.this, ListEmails.class));
+                                    intent.putExtra("placeName", placeName);
+                                    startActivity(intent);
                                 }
                             });
 

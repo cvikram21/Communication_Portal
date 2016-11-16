@@ -7,8 +7,9 @@ import java.util.Set;
 
 
 public class GetSet {
-    String email, firstName, lastName;
-   static Set<String> Emailset1 = new HashSet<String>();
+    String  firstName, lastName;
+   static String email;
+    static Set<String> Emailset1 = new HashSet<String>();
 
     public void setEmail(String email) {
         this.email = email;

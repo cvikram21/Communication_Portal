@@ -30,6 +30,7 @@ public class ListEmails extends AppCompatActivity {
     GetSet getSet = new GetSet();
     Spinner spinner;
     ListView listView;
+    String placeName;
     CustomAlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ListEmails extends AppCompatActivity {
         Emailset1 = getSet.getEmailset1();
         alertDialog = new CustomAlertDialog(ListEmails.this);
         listView = (ListView) findViewById(R.id.listView2);
-
+        placeName = getIntent().getExtras().getString("placeName");
         List<String> list = new ArrayList<String>(Emailset1);
         //code from here written by Teja
         if(list.isEmpty()){
@@ -102,6 +103,8 @@ public class ListEmails extends AppCompatActivity {
                         .show();
 */
                 Intent intent = new Intent(ListEmails.this, EmailSubjectBody.class);
+                intent.putExtra(placeName, "placeName");
+                intent.putExtra(itemValue, "email");
                 startActivity(intent);
             }
 
