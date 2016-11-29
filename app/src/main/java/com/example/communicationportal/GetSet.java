@@ -2,11 +2,23 @@ package com.example.communicationportal;
 
 import android.util.Log;
 
+import com.google.api.services.gmail.Gmail;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
 public class GetSet {
+    static com.google.api.services.gmail.Gmail mService = null;
+
+    public static Gmail getmService() {
+        return mService;
+    }
+
+    public static void setmService(Gmail mService) {
+        GetSet.mService = mService;
+    }
+
     String  firstName, lastName;
    static String email;
     static Set<String> Emailset1 = new HashSet<String>();

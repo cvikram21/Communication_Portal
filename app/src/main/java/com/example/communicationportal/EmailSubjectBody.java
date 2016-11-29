@@ -2,6 +2,7 @@ package com.example.communicationportal;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
@@ -60,7 +61,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailSubjectBody extends AppCompatActivity
-        implements EasyPermissions.PermissionCallbacks, ServiceMethodListener {
+        implements EasyPermissions.PermissionCallbacks{
+    public com.google.api.services.gmail.Gmail mService = null;
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
@@ -88,6 +90,8 @@ public class EmailSubjectBody extends AppCompatActivity
         mCallApiButton = (Button)findViewById(R.id.button4);
         senderplaceName = getIntent().getExtras().getString("placeName");
         senderEmail = getIntent().getExtras().getString("email");
+        Log.d("senderplaceName",senderplaceName);
+        Log.d("senderEmail",senderEmail);
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +106,7 @@ public class EmailSubjectBody extends AppCompatActivity
        /* String url1 = getResources().getString(R.string.base_url)+"sentmaildetails.php?"+"sentmailid="+senderEmail+"&sentmailsubject="+subject+"&email="+getSet.getEmail()+"&sentmailername="+senderplaceName+"";
         Log.d("Vikki", url1);
         ServiceWithoutParameters postmethods = new ServiceWithoutParameters(EmailSubjectBody.this, url1 , "RegClass","RegMethod");
-        postmethods.execute();
-*/
+        postmethods.execute();*/
         //setContentView(activityLayout);
 
         // Initialize credentials and service object.
@@ -303,17 +306,13 @@ public class EmailSubjectBody extends AppCompatActivity
         dialog.show();
     }
 
-    @Override
-    public void getResponse(String data, String classname, String methodname) {
-
-    }
 
     /**
      * An asynchronous task that handles the Gmail API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
-    private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
-        private com.google.api.services.gmail.Gmail mService = null;
+    private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> implements ServiceMethodListener{
+
         private Exception mLastError = null;
 
         public MakeRequestTask(GoogleAccountCredential credential) {
@@ -322,6 +321,7 @@ public class EmailSubjectBody extends AppCompatActivity
             mService = new com.google.api.services.gmail.Gmail.Builder(
                     transport, jsonFactory, credential)
                     .build();
+            getSet.setmService(mService);
         }
 
         /**
@@ -350,7 +350,13 @@ public class EmailSubjectBody extends AppCompatActivity
             List<String> labels = new ArrayList<String>();
             SendEmail sendEmail = new SendEmail();
             try {
+                //sendEmail.sendMessage(mService, user , createEmail(senderEmail , "me", subject, message));
                 sendEmail.sendMessage(mService, user , createEmail("cvikram785@gmail.com" , "me", subject, message));
+                String place = senderplaceName.replaceAll(" ","_");
+                String url1 = getResources().getString(R.string.base_url) +"sentmaildetails.php?"+"email="+getSet.getEmail()+"&sentmailid="+senderEmail+"&sentmailername="+place+"&sentmailsubject="+subject+"";
+                Log.d("Vikki", url1);
+                ServiceWithoutParameters postmethods = new ServiceWithoutParameters(EmailSubjectBody.this, url1, "Loginclass", "Loginmethod");
+                postmethods.execute();
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
@@ -403,14 +409,16 @@ public class EmailSubjectBody extends AppCompatActivity
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             EmailSubjectBody.REQUEST_AUTHORIZATION);
                 } else {
-                    Toast.makeText(getApplicationContext() , mLastError.getMessage(), Toast.LENGTH_SHORT);/*
-                    mOutputText.setText("The following error occurred:\n"
-                            + mLastError.getMessage());*/
+                    Toast.makeText(getApplicationContext() , mLastError.getMessage(), Toast.LENGTH_SHORT);
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Request cancelled" , Toast.LENGTH_SHORT);/*
-                mOutputText.setText("Request cancelled.");*/
+                Toast.makeText(getApplicationContext(), "Request cancelled" , Toast.LENGTH_SHORT);
             }
+        }
+
+        @Override
+        public void getResponse(String data, String classname, String methodname) {
+
         }
     }
 }

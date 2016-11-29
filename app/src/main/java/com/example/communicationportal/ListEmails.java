@@ -96,15 +96,15 @@ public class ListEmails extends AppCompatActivity {
 
                 // ListView Clicked item value
                 String  itemValue    = (String) listView.getItemAtPosition(position);
-
+                Log.d("itemValue",itemValue);
                 // Show Alert
 /*                Toast.makeText(getApplicationContext(),
                         "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
 */
                 Intent intent = new Intent(ListEmails.this, EmailSubjectBody.class);
-                intent.putExtra(placeName, "placeName");
-                intent.putExtra(itemValue, "email");
+                intent.putExtra("placeName",placeName);
+                intent.putExtra("email",itemValue);
                 startActivity(intent);
             }
 

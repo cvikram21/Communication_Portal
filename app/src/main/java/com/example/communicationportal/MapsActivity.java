@@ -106,6 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 public void run() {
                                     Intent intent = (new Intent(MapsActivity.this, ListEmails.class));
                                     intent.putExtra("placeName", placeName);
+                                    Log.d("placeName",placeName);
                                     startActivity(intent);
                                 }
                             });
