@@ -35,43 +35,46 @@ public class ChatScreen extends AppCompatActivity implements ServiceMethodListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
-        listView = (ListView)findViewById(R.id.listView3);
-        //alertDialog = new CustomAlertDialog(ChatScreen.this);
-        //alertDialog.showOkDialog("No conversations found");
+        listView = (ListView) findViewById(R.id.listView3);
         String url2 = getResources().getString(R.string.base_url) + "chats.php?" + "username=" + getSet.getEmail() + "";
         Log.d("Vikki", url2);
         ServiceWithoutParameters postmethod = new ServiceWithoutParameters(ChatScreen.this, url2, "Case3class", "Case3method");
         postmethod.execute();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if (list == null) {
+            alertDialog = new CustomAlertDialog(ChatScreen.this);
+            alertDialog.showOkDialog("No conversations found");
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+        } else {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, list);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                // ListView Clicked item index
-                int itemPosition     = position;
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
 
-                // ListView Clicked item value
-                String  itemValue    = (String) listView.getItemAtPosition(position);
-                Log.d("itemValue",itemValue);
-                Log.d("mailerid", mailerids[position]);
-                // Show Alert
+                    // ListView Clicked item index
+                    int itemPosition = position;
+
+                    // ListView Clicked item value
+                    String itemValue = (String) listView.getItemAtPosition(position);
+                    Log.d("itemValue", itemValue);
+                    Log.d("mailerid", mailerids[position]);
+                    // Show Alert
 /*                Toast.makeText(getApplicationContext(),
                         "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
 */
-                Intent intent = new Intent(ChatScreen.this, Messages.class);
-                intent.putExtra("subject",itemValue);
-                intent.putExtra("email",mailerids[position]);
-                startActivity(intent);
-            }
+                    Intent intent = new Intent(ChatScreen.this, Messages.class);
+                    intent.putExtra("subject", itemValue);
+                    intent.putExtra("email", mailerids[position]);
+                    startActivity(intent);
+                }
 
-        });
+            });
+        }
     }
-
     @Override
     public void getResponse(String data, String classname, String methodname) {
         if (classname.equalsIgnoreCase("Case3class")) {

@@ -1,5 +1,6 @@
 package com.example.communicationportal;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,6 +80,11 @@ public class Messages extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //alertDialog = new CustomAlertDialog(ChatScreen.this);
+                //alertDialog.showOkDialog("No conversations found");
+                final ProgressDialog progress = ProgressDialog.show(Messages.this, "Please wait while we send the message", "Sending Message", true);
+                progress.setCancelable(true);
+
                 replyMessage = editText.getText().toString();
                 try {
                     new Thread(new Runnable() {
@@ -89,6 +95,9 @@ public class Messages extends AppCompatActivity {
                             try {
                                 //sendEmail.sendMessage(mService, user , createEmail(senderEmail , "me", subject, message));
                                 sendEmail.sendMessage(mService, "me" , createEmail("cvikram785@gmail.com" , "me", subject, replyMessage));
+                                progress.dismiss();
+                                Intent intent= new Intent(Messages.this, ChatScreen.class);
+                                startActivity(intent);
                             } catch (MessagingException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
