@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -22,8 +25,10 @@ import HttpConnection.ServiceWithoutParameters;
 public class ChatScreen extends AppCompatActivity implements ServiceMethodListener{
     CustomAlertDialog alertDialog;
     ListView listView;
+    EditText editText;
+    ImageView imageButton;
     GetSet getSet = new GetSet();
-    String email, mailerid, mailername, mailsubject;
+    String email, mailerid, mailername, mailsubject,mailsubject1, mailername1;
     String names[], subjects[], mailerids[];
     List<String> list = new ArrayList<String>();
     @Override
@@ -87,10 +92,12 @@ public class ChatScreen extends AppCompatActivity implements ServiceMethodListen
                             mailerid = jb1.getString("sentmailid");
                             mailername = jb1.getString("sentmailername");
                             mailsubject = jb1.getString("sentmailsubject");
-                            names[i] = mailername;
-                            subjects[i] = mailsubject;
+                            mailername1 = mailername.replaceAll("_"," ");
+                            mailsubject1 = mailsubject.replaceAll("_"," ");
+                            names[i] = mailername1;
+                            subjects[i] = mailsubject1;
                             mailerids[i] = mailerid;
-                            list.add(names[i]+"         "+subjects[i]);
+                            list.add(names[i]+"\n"+subjects[i]);
                         }
 
                     } else {

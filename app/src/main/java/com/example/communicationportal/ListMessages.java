@@ -45,7 +45,7 @@ public class ListMessages {
         Message message = service.users().messages().get(userId, messageId).execute();
 
         System.out.println("Message snippet: " + message.getSnippet());
-        String actualmessage = message.getSnippet().replaceAll(".[O]n.*", "");
+        String actualmessage = message.getSnippet().replaceAll(".[O]n.*", ":reply");
         return actualmessage;
     }
 }

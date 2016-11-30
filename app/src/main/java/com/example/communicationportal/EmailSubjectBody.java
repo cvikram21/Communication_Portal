@@ -353,7 +353,8 @@ public class EmailSubjectBody extends AppCompatActivity
                 //sendEmail.sendMessage(mService, user , createEmail(senderEmail , "me", subject, message));
                 sendEmail.sendMessage(mService, user , createEmail("cvikram785@gmail.com" , "me", subject, message));
                 String place = senderplaceName.replaceAll(" ","_");
-                String url1 = getResources().getString(R.string.base_url) +"sentmaildetails.php?"+"email="+getSet.getEmail()+"&sentmailid="+senderEmail+"&sentmailername="+place+"&sentmailsubject="+subject+"";
+                String subject1 = subject.replaceAll(" ","_");
+                String url1 = getResources().getString(R.string.base_url) +"sentmaildetails.php?"+"email="+getSet.getEmail()+"&sentmailid="+senderEmail+"&sentmailername="+place+"&sentmailsubject="+subject1+"";
                 Log.d("Vikki", url1);
                 ServiceWithoutParameters postmethods = new ServiceWithoutParameters(EmailSubjectBody.this, url1, "Loginclass", "Loginmethod");
                 postmethods.execute();
